@@ -2,6 +2,15 @@
 Design Plan - P2
 Due: 3/12/25 11:59pm
 
+-------------------------------------------------------------------------------------
 After reading the specs, start populating
 a list of things you thi8nk you might have to 
 do to finish this project
+-------------------------------------------------------------------------------------
+
+Day 1: 03/10/25
+1) read specs
+2) understand map-based input files
+
+Day 1: 03/11/25
+1) 

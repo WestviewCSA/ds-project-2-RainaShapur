@@ -1,0 +1,7 @@
+5 4 1
+@@@@garbage this is ignored
+W.@$
+@...
+...@
+@..@
+39872346    ignored?
