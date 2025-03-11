@@ -11,6 +11,13 @@ do to finish this project
 Day 1: 03/10/25
 1) read specs
 2) understand map-based input files
+3) push and commit files
 
-Day 1: 03/11/25
-1) 
+Day 2: 03/11/25
+1) understand specs
+2) start designing the map
+3) push and commit files
+
+Day 3: 03/12/25
+1) finish designing the map
+2) push and commit files
