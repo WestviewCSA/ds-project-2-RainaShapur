@@ -14,10 +14,11 @@ Day 1: 03/10/25
 3) push and commit files
 
 Day 2: 03/11/25
-1) understand specs
+1) read and try to understand specs
 2) start designing the map
 3) push and commit files
 
 Day 3: 03/12/25
-1) finish designing the map
-2) push and commit files
+1) file reading
+2) read up on coordinate-based
+3) push and commit files
