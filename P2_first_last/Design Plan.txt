@@ -22,3 +22,7 @@ Day 3: 03/12/25
 1) file reading
 2) read up on coordinate-based
 3) push and commit files
+
+Day: Rest - 
+1) Always Commit
+2) Work on testing and cross-checking
