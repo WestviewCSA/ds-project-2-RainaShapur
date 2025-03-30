@@ -1,7 +1,5 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.util.Stack;
+import java.io.*;
+import java.util.*;
 
 public class p2 {
 
@@ -10,38 +8,38 @@ public class p2 {
     private static int numRows, numCols;
 
     public static void main(String[] args) {
-        // Print out initial message to signify the program is starting
+        // Print a welcome message indicating the program is starting
         System.out.println("Maze Solver - p2");
 
-        // Specify the map file to be read
+        // Specify the map file to be read and load it
         readMap("Test Case");
 
-        // Solve the maze using a stack-based approach
+        // Solve the maze using a stack-based approach (DFS)
         solveWithStack();
     }
 
-    // Method to read the maze from a given file
+    // Method to read the maze from a file
     private static void readMap(String filename) {
         try {
-            File file = new File(filename);  // File object for reading the map file
+            File file = new File(filename);  // File object for the map file
             Scanner scanner = new Scanner(file);  // Scanner to read the file
 
-            // Read the dimensions of the maze and number of rooms (not currently used)
+            // Read the maze dimensions
             numRows = scanner.nextInt();
             numCols = scanner.nextInt();
-            int numRooms = scanner.nextInt();  // This variable is read but not used in this implementation
+            int numRooms = scanner.nextInt();  // This is read but not currently used
 
             // Initialize the maze as a 2D Tile array
             maze = new Tile[numRows][numCols];
 
-            // Read the rest of the lines, each corresponding to a row of the maze
-            for (int rowIndex = 0; rowIndex < numRows; rowIndex++) {
+            // Read each row of the maze and populate the tiles
+            for (int i = 0; i < numRows; i++) {
                 String row = scanner.next();  // Read each row as a string
 
-                // Loop through the columns of the current row
-                for (int colIndex = 0; colIndex < numCols; colIndex++) {
-                    char element = row.charAt(colIndex);  // Get the character at the current position
-                    maze[rowIndex][colIndex] = new Tile(rowIndex, colIndex, element);  // Create a new Tile object for each position
+                // Fill in each tile with its row, column, and corresponding character
+                for (int j = 0; j < numCols; j++) {
+                    char element = row.charAt(j);  // Get the character for the current position
+                    maze[i][j] = new Tile(i, j, element);  // Create a Tile object for each cell
                 }
             }
         } catch (FileNotFoundException e) {
@@ -49,58 +47,54 @@ public class p2 {
         }
     }
 
-    // Method to solve the maze using a stack-based approach (DFS)
+    // Method to solve the maze using a stack (DFS)
     private static void solveWithStack() {
-        // Initialize a stack to store the positions during the traversal
-        Stack<Tile> stack = new Stack<>();
+        Stack<Tile> stack = new Stack<>();  // Stack to store the maze tiles during traversal
 
-        // Find the starting position ('S') and push it onto the stack
-        Tile start = findStartTile();
-        stack.push(start);
+        Tile start = findStartTile();  // Find the start tile
+        stack.push(start);  // Push the start tile onto the stack
 
-        // Loop until the stack is empty or the exit ('E') is found
         while (!stack.isEmpty()) {
-            Tile current = stack.pop();  // Pop the top element from the stack
-            int x = current.getRow();  // Current row
-            int y = current.getCol();  // Current column
+            Tile current = stack.pop();  // Pop the top tile from the stack
+            int i = current.getRow();  // Get the current row
+            int j = current.getCol();  // Get the current column
 
-            // If we found the exit, print a success message and return
-            if (maze[x][y].getType() == 'E') {
-                System.out.println("Exit found at (" + x + ", " + y + ")");
+            // If we find the exit tile, print the success message
+            if (maze[i][j].getType() == '$') {
+                System.out.println("Exit found at (" + i + ", " + j + ")");
                 return;
             }
 
-            // Mark the current position as visited by changing its type to '.'
-            maze[x][y].setType('.');
+            maze[i][j].setType('.');  // Mark the current tile as visited
 
-            // Check the 4 possible directions (up, down, left, right) and push valid tiles onto the stack
-            if (x > 0 && maze[x - 1][y].getType() != '#') {
-                stack.push(maze[x - 1][y]);  // Up
+            // Check neighboring tiles (up, down, left, right) and push valid tiles onto the stack
+            if (i > 0 && maze[i - 1][j].getType() != '.') {
+                stack.push(maze[i - 1][j]);  // Move up
             }
-            if (x < numRows - 1 && maze[x + 1][y].getType() != '#') {
-                stack.push(maze[x + 1][y]);  // Down
+            if (i < numRows - 1 && maze[i + 1][j].getType() != '.') {
+                stack.push(maze[i + 1][j]);  // Move down
             }
-            if (y > 0 && maze[x][y - 1].getType() != '#') {
-                stack.push(maze[x][y - 1]);  // Left
+            if (j > 0 && maze[i][j - 1].getType() != '.') {
+                stack.push(maze[i][j - 1]);  // Move left
             }
-            if (y < numCols - 1 && maze[x][y + 1].getType() != '#') {
-                stack.push(maze[x][y + 1]);  // Right
+            if (j < numCols - 1 && maze[i][j + 1].getType() != '.') {
+                stack.push(maze[i][j + 1]);  // Move right
             }
         }
 
-        // If the stack is empty and no exit was found, print a failure message
+        // If no exit is found after the stack is empty, print failure
         System.out.println("No solution found");
     }
 
-    // Method to find the starting position ('S') in the maze
+    // Method to find the start tile ('@') in the maze
     private static Tile findStartTile() {
         for (int i = 0; i < numRows; i++) {
             for (int j = 0; j < numCols; j++) {
-                if (maze[i][j].getType() == 'S') {
-                    return maze[i][j];  // Return the tile where 'S' is located
+                if (maze[i][j].getType() == '@') {  // Check for the start tile
+                    return maze[i][j];  // Return the start tile
                 }
             }
         }
-        return null;  // Return null if no start position is found
+        return null;  // Return null if no start tile is found
     }
 }
